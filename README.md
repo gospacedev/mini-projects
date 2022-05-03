@@ -1,2 +1,2 @@
-# collatz-conjecture
-Colltaz Conjecture written in C++
+# cpp-projects
+Trying to solving the karan/Projects in C++
