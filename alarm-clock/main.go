@@ -29,20 +29,28 @@ func main() {
 	// Initializes the speaker
 	speaker.Init(format.SampleRate, format.SampleRate.N(time.Second/10))
 
-	// Asking the user to input a number of seconds and then it is storing that number in the variable
-	// seconds
-	var seconds int
+	// Asking the user to input the amount of time that they want the timer to wait before playing the
+	// audio file.
+	var a int
+	fmt.Println("Enter hours: ")
+	fmt.Scan(&a)
+
+	var b int
+	fmt.Println("Enter minutes: ")
+	fmt.Scan(&b)
+
+	var c int
 	fmt.Println("Enter seconds: ")
-	fmt.Scan(&seconds)
+	fmt.Scan(&c)
 
-	// A for loop that counts down from the number of seconds the user inputs
-	for i := seconds; i > 0; i-- {
-		time.Sleep(1*time.Second)
-		fmt.Println(i)
+    // Creating a timer that will wait for the amount of time that the user inputs
+	timer := time.NewTimer(time.Duration(a) * time.Hour + 
+                           time.Duration(b) * time.Minute +
+						   time.Duration(c) * time.Second)
 
-		if i == 1 {// Playing the audio file when the countdown reaches 1
-			speaker.Play(streamer)
-			select{}
-		}
-	}
+	// speaker.Play starts the streamer but dosen't wait for it to finish
+	// to fix this select{} waits for the streamer to end
+	<-timer.C// This blocks the timer's channel until the duration has ended
+	speaker.Play(streamer)// Play the audio file
+	select{}
 }
