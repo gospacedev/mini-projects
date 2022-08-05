@@ -1,7 +1,9 @@
 // Initialize random
 Random rnd = new Random();
+
 // Asking the user how many flips
 Console.WriteLine("Enter how many flips: ");
+
 // Reading line and converting it to 32-bit integer
 int length = Convert.ToInt32(Console.ReadLine());
 
